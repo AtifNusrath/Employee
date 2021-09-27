@@ -1,12 +1,27 @@
 package com.bridgelabz;
 
-public class EmpMultiCompany {
+public class EmpWageCompany {
+
     static final int PART_TIME = 1;
     static final int FULL_TIME = 2;
+    private static int WAGE_PER_HR;
+    private static String company;
+    private static int MAX_WORKING_DAYS;
+    private static int MAX_WORKING_HRS;
+    int wage;
 
-    public static void computeEmpWage(String company, int WAGE_PER_HR, int MAX_WORKING_DAYS, int MAX_WORKING_HRS) {
-        int workingHrs = 0, totalWage = 0;
-        int wage;
+
+    public EmpWageCompany(String company, int WAGE_PER_HR, int MAX_WORKING_DAYS, int MAX_WORKING_HRS) {
+        this.company = company;
+        this.WAGE_PER_HR = WAGE_PER_HR;
+        this.MAX_WORKING_DAYS = MAX_WORKING_DAYS;
+        this.MAX_WORKING_HRS = MAX_WORKING_HRS;
+
+    }
+
+    public void computeEmpWage() {
+        int workingHrs = 0;
+        int totalWage = 0;
         System.out.printf("%5s     %5s     %5s\n", "Day", "WorkingHrs", "Total working hrs");
         for (int day = 1, totalWorkingHrs = 0; day <= MAX_WORKING_DAYS && totalWorkingHrs < MAX_WORKING_HRS; day++, totalWorkingHrs += workingHrs) {
 
@@ -22,19 +37,24 @@ public class EmpMultiCompany {
                     workingHrs = 0;
                     break;
             }
-
             totalWage += workingHrs;
-           // System.out.println("Day#: " +day+ " Emp Hr: " +workingHrs);
             System.out.printf("%5d       %5d         %5d\n", day, workingHrs, totalWorkingHrs + workingHrs);
 
         }
         wage = totalWage * WAGE_PER_HR;
-        System.out.println("Total Empwage for Company: " + company + " is: " + wage);
+    }
+
+   @Override
+    public String toString() {
+        return "Total Empwage for Company: " + company + " is: " + wage;
     }
 
     public static void main(String[] args) {
-        computeEmpWage("Google", 20, 2, 10);
-        computeEmpWage("Metro", 10, 4, 20);
+        EmpWageCompany google = new EmpWageCompany("Google", 20, 2, 10);
+        google.computeEmpWage();
+        System.out.println(google);
+        EmpWageCompany metro = new EmpWageCompany("Metro", 10, 4, 20);
+        metro.computeEmpWage();
+        System.out.println(metro);
     }
 }
-
